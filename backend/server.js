@@ -26,9 +26,9 @@ const cors = require('cors');
 app.use(cors());
 
 // initialize the main project folder (frontend)
-// app.use(express.static('website'));
+app.use(express.static('Demo-fullstack-project')); //here is a change
 
-const port = 8000;
+const port = 3000;
 
 //spin up to the server
 const server = app.listen(port, listening);
@@ -39,11 +39,11 @@ function listening (){
     console.log(`running on localhost: ${port}`);
 }
 
-const appData = {};
+const appData = {name: 'hossam'}; //here is a change
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
     res.send(appData);
-  });
+  }); 
   // make sure of the correct folder structure
   //then run the npm local host
   // this dont work with vs code live server
