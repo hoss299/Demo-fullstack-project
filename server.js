@@ -26,12 +26,12 @@ const cors = require('cors');
 app.use(cors());
 
 // initialize the main project folder (frontend)
-app.use(express.static('Demo-fullstack-project')); //here is a change
+app.use(express.static('website')); //here is a change
 
-const port = 3000;
+const port =  4300; //process.env.port ||
 
 //spin up to the server
-const server = app.listen(port, listening);
+ const server = app.listen(port, listening);
 
 // callback function to debug 
 function listening (){
@@ -39,10 +39,10 @@ function listening (){
     console.log(`running on localhost: ${port}`);
 }
 
-const appData = {name: 'hossam'}; //here is a change
+// const appData = {name: 'hossam'}; //here is a change
 // respond with "hello world" when a GET request is made to the homepage
-app.get('/', function (req, res) {
-    res.send(appData);
+app.get('/best', function (req, res) {
+    res.send("hello zoko");
   }); 
   // make sure of the correct folder structure
   //then run the npm local host
@@ -50,11 +50,46 @@ app.get('/', function (req, res) {
 
 const data = []; 
 
-function addMovie (req, res)  {
-    data.push(req.body);
-    console.log(data);
+// POST method route
+app.post('/addMovie', function addMovie (req, res)  {
+  data.push(req.body);
+  console.log(data);
+});
+
+
+// Dummy API Enpoint
+const fakeData = {
+  animal: 'lion',
+  fact: 'lions are fun'
 };
 
-// POST method route
-app.post('/addMovie', addMovie);
+app.get('/animalData', getFakeData);
 
+function getFakeData (req, res) {
+  res.send(fakeData);
+};
+
+const animalData = [];
+
+app.get('/all', getData);
+
+function getData (req, res) {
+  res.send(animalData);
+  console.log(animalData);
+};
+
+// POST ROUTE
+
+app.post('/addAnimal', addAnimal);
+
+function addAnimal (req, res) {
+  newEntry = {
+    animal: req.body.animal,
+    facts: req.body.fact,
+    fav: req.body.fav
+  }
+
+  animalData.push(newEntry)
+  res.send(animalData)
+  console.log(animalData)
+}
